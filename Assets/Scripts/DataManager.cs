@@ -24,7 +24,12 @@ public class DataManager : MonoBehaviour
     public string unserialized_data;
     public UserList users;
 
+    public GameObject planeSpawn;
     public GameObject houseToSpawn;
+
+    private GameObject plane;
+    private Vector3 previousLocation;
+    public List<Vector3> locations;
     void Start()
     {
         // A correct website page.
@@ -59,20 +64,29 @@ public class DataManager : MonoBehaviour
             }
             if (users.users.Count > 0)
             {
+                plane = Instantiate(planeSpawn, new Vector3(0f, 0f, 0f), new Quaternion());
+                int counter = 0;
                 foreach (UserObjectClass user in users.users)
                 {
-                    DoXForUser(user);
+                    DoXForUser(user, counter);
+                    counter++;
                 }
             }
         }
     }
 
-    void DoXForUser(UserObjectClass user)
+    void DoXForUser(UserObjectClass user, int locationCounter)
     {
-        Vector3 location = new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(0f, 0f), Random.Range(-5.0f, 5.0f));
+        if (locationCounter > locations.Count)
+        {
+            return;
+        }
+
+        Vector3 location = locations[locationCounter];
         Quaternion newrotation = new Quaternion();
         var house = Instantiate(houseToSpawn, location, newrotation);
         var textmesh = house.GetComponentInChildren<TextMeshPro>();
         textmesh.SetText(user.name);
+        house.transform.SetParent(plane.transform);
     }
 }

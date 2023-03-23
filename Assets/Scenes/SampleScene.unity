@@ -333,7 +333,17 @@ MonoBehaviour:
   unserialized_data: 
   users:
     users: []
+  planeSpawn: {fileID: 8851773699810057905, guid: aeccdfb13de32094c87d869c050b132e, type: 3}
   houseToSpawn: {fileID: 6705557356780347954, guid: e605ef41e447eb1489520982b1b5664f, type: 3}
+  locations:
+  - {x: -5, y: 0, z: -5}
+  - {x: -5, y: 0, z: 0}
+  - {x: -5, y: 0, z: 5}
+  - {x: 5, y: 0, z: 5}
+  - {x: 5, y: 0, z: 0}
+  - {x: 5, y: 0, z: -5}
+  - {x: 0, y: 0, z: 5}
+  - {x: 0, y: 0, z: -5}
 --- !u!4 &1799127649
 Transform:
   m_ObjectHideFlags: 0
