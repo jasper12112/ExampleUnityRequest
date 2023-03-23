@@ -30,6 +30,7 @@ public class DataManager : MonoBehaviour
     private GameObject plane;
     private Vector3 previousLocation;
     public List<Vector3> locations;
+    private float latestLocX = 0f;
     void Start()
     {
         // A correct website page.
@@ -68,6 +69,12 @@ public class DataManager : MonoBehaviour
                 int counter = 0;
                 foreach (UserObjectClass user in users.users)
                 {
+                    if (counter == locations.Count)
+                    {
+                        latestLocX = latestLocX + 15;
+                        plane = Instantiate(planeSpawn, new Vector3(latestLocX, 0f, 0f), new Quaternion());
+                        counter = 0;
+                    }
                     DoXForUser(user, counter);
                     counter++;
                 }
@@ -84,9 +91,10 @@ public class DataManager : MonoBehaviour
 
         Vector3 location = locations[locationCounter];
         Quaternion newrotation = new Quaternion();
-        var house = Instantiate(houseToSpawn, location, newrotation);
+        var house = Instantiate(houseToSpawn, new Vector3(), newrotation);
+        house.transform.SetParent(plane.transform);
+        house.transform.localPosition = location;
         var textmesh = house.GetComponentInChildren<TextMeshPro>();
         textmesh.SetText(user.name);
-        house.transform.SetParent(plane.transform);
     }
 }
